@@ -1,0 +1,34 @@
+dep.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: usn-nginx-deployment
+ namespace: usn
+ labels:
+ app: usn-nginx
+spec:
+ replicas: 3
+ selector:
+ 	matchLabels:
+ 		app: usn-nginx
+ template:
+ 	metadata:
+ 		labels:
+			 app: usn-nginx
+ 	spec:
+ 		containers:
+ 		- name: nginx
+ 			image: 172.1.14.168:5001/nginx
+		  	ports:
+ 			- containerPort: 80
+kubectl create namespace 1ms99cs001
+kubectl apply -f dep.yaml
+kubectl expose deployment usn-nginx-deployment --type=NodePort --name=usn-nginx-service -
+-namespace=1ms99cs001
+kubectl get pods --namespace=1ms99cs001
+kubectl get svc --namespace=1ms99cs001
+Demonstrate the updation of image in live container in a pod using command line.
+kubectl set image deployment/usn-nginx-deployment nginx=newImageusn --
+namespace=1ms99cs001
+kubectl describe deploy usn-nginx-deployment --namespace=1ms99cs001 | grep 
+newImageus

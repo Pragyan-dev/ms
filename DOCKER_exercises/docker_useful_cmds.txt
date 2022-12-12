@@ -1,0 +1,51 @@
+####List docker images #####
+docker images
+
+####get a list of all active and inactive containers with image name ####
+docker container ls -a
+
+
+### to build and run the docker image & Run container #####
+docker build -t sri/nodeapp .
+docker run -p 49000:8081 -d sri/nodeapp
+
+######### get into container shell
+docker run -it nodeapp /bin/bash
+
+
+####get a list of all non-running (stopped) containers
+docker container ls -a --filter status=exited --filter status=created
+
+
+######List, Start/Run Stop & Deleting the container####
+docker ps
+docker ps -q   					// display containers in numeric-ids
+
+docker stop <containername>
+docker rm <containername>
+
+
+#### To remove docker images  ####
+$ docker image rm -f <imageid>
+
+
+#***********To DELETE ALL CONTAINERS including its volumes use,
+docker rm -vf $(docker ps -a -q)
+
+
+#***********To DELETE ALL IMAGES *********#####
+docker rmi -f $(docker images -a -q)
+
+
+
+########Install software package inside container #############
+#### Login into container with the following command:
+
+docker exec -it <container> bash
+docker exec -it 3f27ecdf0302 bash
+
+apt-get update
+apt-get install vim
+
+
+
